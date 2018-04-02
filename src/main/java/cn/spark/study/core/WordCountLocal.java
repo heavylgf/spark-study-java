@@ -1,6 +1,7 @@
 package cn.spark.study.core;
 
 import java.util.Arrays;
+import java.util.Iterator;
 
 import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaPairRDD;
@@ -15,8 +16,8 @@ import scala.Tuple2;
 
 /**
  * 使用java开发本地测试的wordcount程序
- * @author Administrator
  *
+ * @author Administrator
  */
 public class WordCountLocal {
 
@@ -51,7 +52,7 @@ public class WordCountLocal {
         // 在Java中，创建的普通RDD，都叫做JavaRDD
         // 在这里呢，RDD中，有元素这种概念，如果是hdfs或者本地文件呢，创建的RDD，每一个元素就相当于
         // 是文件里的一行
-        JavaRDD<String> lines = sc.textFile("C://Users//Administrator//Desktop//spark.txt");
+        JavaRDD<String> lines = sc.textFile("C://Users//CTWLPC//Desktop//spark.txt");
 
         // 第四步：对初始RDD进行transformation操作，也就是一些计算操作
         // 通常操作会通过创建function，并配合RDD的map、flatMap等算子来执行
@@ -62,13 +63,22 @@ public class WordCountLocal {
         // FlatMapFunction，有两个泛型参数，分别代表了输入和输出类型
         // 我们这里呢，输入肯定是String，因为是一行一行的文本，输出，其实也是String，因为是每一行的文本
         // 这里先简要介绍flatMap算子的作用，其实就是，将RDD的一个元素，给拆分成一个或多个元素
+//        JavaRDD<String> words = lines.flatMap(new FlatMapFunction<String, String>() {
+//
+//            private static final long serialVersionUID = 1L;
+//
+//            @Override
+//            public Iterable<String> call(String line) throws Exception {
+//                return Arrays.asList(line.split(" "));
+//            }
+//
+//        });
         JavaRDD<String> words = lines.flatMap(new FlatMapFunction<String, String>() {
 
-            private static final long serialVersionUID = 1L;
-
             @Override
-            public Iterable<String> call(String line) throws Exception {
-                return Arrays.asList(line.split(" "));
+            public Iterator<String> call(String line) throws Exception {
+
+                return Arrays.asList((line.split(" "))).iterator();
             }
 
         });
@@ -117,7 +127,7 @@ public class WordCountLocal {
         // 但是，之前我们使用的flatMap、mapToPair、reduceByKey这种操作，都叫做transformation操作
         // 一个Spark应用中，光是有transformation操作，是不行的，是不会执行的，必须要有一种叫做action
         // 接着，最后，可以使用一种叫做action操作的，比如说，foreach，来触发程序的执行
-        wordCounts.foreach(new VoidFunction<Tuple2<String,Integer>>() {
+        wordCounts.foreach(new VoidFunction<Tuple2<String, Integer>>() {
 
             private static final long serialVersionUID = 1L;
 

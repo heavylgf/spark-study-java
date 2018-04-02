@@ -23,7 +23,7 @@ public class LocalFile {
         JavaSparkContext sc = new JavaSparkContext(conf);
 
         // 使用SparkContext以及其子类的textFile()方法，针对本地文件创建RDD
-        JavaRDD<String> lines = sc.textFile("C://Users//Administrator//Desktop//spark.txt");
+        JavaRDD<String> lines = sc.textFile("C://Users//CTWLPC//Desktop//spark.txt");
 
         // 统计文本文件内的字数
         JavaRDD<Integer> lineLength = lines.map(new Function<String, Integer>() {
