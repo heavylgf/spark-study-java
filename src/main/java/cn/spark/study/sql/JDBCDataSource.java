@@ -15,8 +15,7 @@ import org.apache.spark.api.java.JavaSparkContext;
 import org.apache.spark.api.java.function.Function;
 import org.apache.spark.api.java.function.PairFunction;
 import org.apache.spark.api.java.function.VoidFunction;
-import org.apache.spark.sql.DataFrame;
-import org.apache.spark.sql.DataFrameReader;
+import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.RowFactory;
 import org.apache.spark.sql.SQLContext;
@@ -50,11 +49,11 @@ public class JDBCDataSource {
         options.put("url", "jdbc:mysql://spark1:3306/testdb");
         options.put("dbtable", "student_infos");
 
-        DataFrame studentInfosDF = sqlContext.read().format("jdbc")
+        Dataset studentInfosDF = sqlContext.read().format("jdbc")
                 .options(options).load();
 
         options.put("dbtable", "student_scores");
-        DataFrame studentScoresDF = sqlContext.read().format("jdbc")
+        Dataset studentScoresDF = sqlContext.read().format("jdbc")
                 .options(options).load();
 
         // 将两个DataFrame转换为JavaPairRDD，执行join操作
@@ -128,12 +127,12 @@ public class JDBCDataSource {
         StructType structType = DataTypes.createStructType(structFields);
 
         // 将过滤之后的数据转换成DataFrame
-        DataFrame studentsDF = sqlContext.createDataFrame(filteredStudentRowsRDD, structType);
+        Dataset studentsDF = sqlContext.createDataFrame(filteredStudentRowsRDD, structType);
 
         // 注意，这里能否直接用户studentsDF创建一张临时表，通过sql的方式查询
 
         // 将这个数据打印一下，看看是否正确
-        Row[] rows = studentsDF.collect();
+        Row[] rows = (Row[]) studentsDF.collect();
         for(Row row : rows) {
             System.out.println(row);
         }
