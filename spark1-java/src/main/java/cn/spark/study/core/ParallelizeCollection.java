@@ -1,12 +1,12 @@
 package cn.spark.study.core;
 
-import java.util.Arrays;
-import java.util.List;
-
 import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaSparkContext;
 import org.apache.spark.api.java.function.Function2;
+
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * 并行化集合创建RDD

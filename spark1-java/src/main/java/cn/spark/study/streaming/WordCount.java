@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.Iterator;
 
 import org.apache.spark.SparkConf;
+import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.function.FlatMapFunction;
 import org.apache.spark.api.java.function.Function2;
 import org.apache.spark.api.java.function.PairFunction;
@@ -54,13 +55,12 @@ public class WordCount {
         // 产生的新RDD，会作为新DStream中的RDD
         JavaDStream<String> words = lines.flatMap(new FlatMapFunction<String, String>() {
 
-            private static final long serialVersionUID = 1L;
-
             @Override
-            public Iterator<String> call(String line) throws Exception {
-                return Arrays.asList(line.split(" ")).iterator();
-            }
+            public Iterable<String> call(String line) throws Exception {
 
+                return Arrays.asList(line.split(" "));
+
+            }
         });
 
         // 这个时候，每秒的数据，一行一行的文本，就会被拆分为多个单词，words DStream中的RDD的元素类型

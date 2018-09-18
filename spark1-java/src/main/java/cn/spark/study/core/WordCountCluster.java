@@ -1,8 +1,5 @@
 package cn.spark.study.core;
 
-import java.util.Arrays;
-import java.util.Iterator;
-
 import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.JavaRDD;
@@ -11,8 +8,8 @@ import org.apache.spark.api.java.function.FlatMapFunction;
 import org.apache.spark.api.java.function.Function2;
 import org.apache.spark.api.java.function.PairFunction;
 import org.apache.spark.api.java.function.VoidFunction;
-
 import scala.Tuple2;
+import java.util.Arrays;
 
 /**
  * 将java开发的wordcount程序部署到spark集群上运行
@@ -41,14 +38,10 @@ public class WordCountCluster {
         JavaRDD<String> lines = sc.textFile("hdfs://spark1:9000/spark.txt");
 
         JavaRDD<String> words = lines.flatMap(new FlatMapFunction<String, String>() {
-
-            private static final long serialVersionUID = 1L;
-
             @Override
-            public Iterator<String> call(String line) throws Exception {
-                return Arrays.asList(line.split(" ")).iterator();
+            public Iterable<String> call(String line) throws Exception {
+                return Arrays.asList(line.split(" "));
             }
-
         });
 
         JavaPairRDD<String, Integer> pairs = words.mapToPair(

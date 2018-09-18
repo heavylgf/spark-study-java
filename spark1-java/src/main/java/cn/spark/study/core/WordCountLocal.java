@@ -1,8 +1,5 @@
 package cn.spark.study.core;
 
-import java.util.Arrays;
-import java.util.Iterator;
-
 import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.JavaRDD;
@@ -11,8 +8,10 @@ import org.apache.spark.api.java.function.FlatMapFunction;
 import org.apache.spark.api.java.function.Function2;
 import org.apache.spark.api.java.function.PairFunction;
 import org.apache.spark.api.java.function.VoidFunction;
-
 import scala.Tuple2;
+
+import java.util.Arrays;
+import java.util.Iterator;
 
 /**
  * 使用java开发本地测试的wordcount程序
