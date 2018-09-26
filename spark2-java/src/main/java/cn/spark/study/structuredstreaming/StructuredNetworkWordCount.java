@@ -26,7 +26,6 @@ public class StructuredNetworkWordCount {
                 .config("spark.some.config.option", "some-value")
                 .getOrCreate();
 
-
 //        Dataset<Row> df = spark.read().json("C:/Users/CTWLPC/Desktop/people.json");
 //        // 显示DataFrame的内容
 //        df.show();
