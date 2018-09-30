@@ -72,15 +72,24 @@ public class WordCountLocal {
 //            }
 //
 //        });
+
         JavaRDD<String> words = lines.flatMap(new FlatMapFunction<String, String>() {
 
             @Override
-            public Iterator<String> call(String line) throws Exception {
-
-                return Arrays.asList((line.split(" "))).iterator();
+            public Iterable<String> call(String line) throws Exception {
+                return Arrays.asList(line.split(" "));
             }
-
         });
+
+//        JavaRDD<String> words = lines.flatMap(new FlatMapFunction<String, String>() {
+//
+//            @Override
+//            public Iterator<String> call(String line) throws Exception {
+//
+//                return Arrays.asList((line.split(" "))).iterator();
+//            }
+//
+//        });
 
         // 接着，需要将每一个单词，映射为(单词, 1)的这种格式
         // 因为只有这样，后面才能根据单词作为key，来进行每个单词的出现次数的累加
