@@ -1,4 +1,4 @@
-package cn.spark.study-study-java;
+package cn.spark.study;
 
 import static org.junit.Assert.assertTrue;
 
