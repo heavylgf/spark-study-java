@@ -52,6 +52,7 @@ public class LocalFile {
 
         // 关闭JavaSparkContext
         sc.close();
+
     }
 
 }

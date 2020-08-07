@@ -24,7 +24,7 @@
 			<scope>test</scope>
 		</dependency>
 
-		<!--
+		<!--  -->
 		<dependency>
 			<groupId>org.apache.spark</groupId>
 			<artifactId>spark-core_2.11</artifactId>
@@ -75,7 +75,7 @@
 			<artifactId>hive-jdbc</artifactId>
 			<version>1.2.1</version>
 		</dependency>
-		-->
+
 		<!--<dependency> -->
 		<!--<groupId>jdk.tools</groupId> -->
 		<!--<artifactId>jdk.tools</artifactId> -->

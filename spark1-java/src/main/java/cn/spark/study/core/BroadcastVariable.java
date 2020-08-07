@@ -33,16 +33,18 @@ public class BroadcastVariable {
         // 序列化成RDD
         JavaRDD<Integer> numbers = sc.parallelize(numberList);
 
-        JavaRDD<Integer> multipleNumbers = numbers.map(new Function<Integer, Integer>() {
-            @Override
-            public Integer call(Integer v1) throws Exception {
-                // 使用共享变量时，调用其value()方法，即可获取其内部封装的值
-                int factor = factorBroadcast.value();
-                return v1 * factor;
+        JavaRDD<Integer> multipleNumbers = numbers.map(
 
-            }
+                new Function<Integer, Integer>() {
+                    @Override
+                    public Integer call(Integer v1) throws Exception {
+                        // 使用共享变量时，调用其value()方法，即可获取其内部封装的值
+                        int factor = factorBroadcast.value();
+                        return v1 * factor;
 
-        });
+                    }
+
+                });
 
         // foreach算子，打印
         multipleNumbers.foreach(new VoidFunction<Integer>() {

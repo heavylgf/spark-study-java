@@ -34,6 +34,7 @@ public class HDFSFile {
             @Override
             public Integer call(String v1) throws Exception {
                 return v1.length();
+//                return v1.split(" ");
             }
 
         });
